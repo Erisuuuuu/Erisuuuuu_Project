@@ -5,7 +5,7 @@
 venv/
 .env/
 env/
-.idei/
+.idea/
 # Игнорировать файлы базы данных SQLite
 *.sqlite3
 *.db
