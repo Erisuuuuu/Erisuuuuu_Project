@@ -1,5 +1,5 @@
 from django.db import models
-
+from first_app.models import Other
 # Create your models here.
 
 # Модель "Категория"

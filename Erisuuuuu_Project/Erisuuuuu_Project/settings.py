@@ -12,11 +12,18 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 
 from pathlib import Path
 import environ
+import os
 
-
+from tutorial.settings import BASE_DIR
+# Инициализация environ
 env = environ.Env()
-environ.Env.read_env()
-SECRET_KEY = env('SECRET_KEY')
+
+# Указываем путь к .env файлу
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# Основные настройки
+# SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = "ii26in2)k^9oc_fp&ghxx-33bxofdj#++01=ydehj0e94-3^2a"
 DEBUG = env('DEBUG', default=False)
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'first_app',
     'second_app',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

@@ -1,18 +1,23 @@
 from django.shortcuts import render
-from .models import Category, Product, Review  # Импортируем модели
+from rest_framework import viewsets
+from .models import Category, Product, Review
+# from  import Other
+from .serializers import (CategorySerializer, ProductSerializer, ReviewSerializer)
+# , OtherSerializer)
 
-def product_list(request):
-    # Получаем все категории, товары и отзывы
-    categories = Category.objects.all()
-    products = Product.objects.all()
-    reviews = Review.objects.all()
 
-    # Передаем данные в шаблон
-    context = {
-        'categories': categories,
-        'products': products,
-        'reviews': reviews,
-    }
 
-    # Рендерим шаблон с данными
-    return render(request, 'second_app/product_list.html', context)
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+# class OtherViewSet(viewsets.ModelViewSet):
+#     queryset = Other.objects.all()
+#     serializer_class = OtherSerializer
