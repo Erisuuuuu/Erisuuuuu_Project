@@ -32,6 +32,13 @@
                 <small>Товар: {{ review.product.name }}</small>
             </li>
         {% endfor %}
+    </ul><h1>Другое</h1>
+    <ul>
+        {% for oth in other %}
+            <li>
+                {{ oth.name }}(Описание: {{ oth.description }}):
+            </li>
+        {% endfor %}
     </ul>
 </body>
 </html>

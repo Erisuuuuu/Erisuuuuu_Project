@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Category, Product, Review
-# from ..first_app.models import Other
+from first_app.models import Other
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -16,7 +16,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = '__all__'
 
-# class OtherSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Other
-#         fields = '__all__'
+class OtherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Other
+        fields = '__all__'

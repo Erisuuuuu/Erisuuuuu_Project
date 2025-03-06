@@ -15,6 +15,7 @@ import environ
 import os
 
 from tutorial.settings import BASE_DIR
+
 # Инициализация environ
 env = environ.Env()
 
