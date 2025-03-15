@@ -1,6 +1,6 @@
 from django.db import models
 from first_app.models import Other
-# Create your models here.
+from django.contrib.auth.models import User
 
 # Модель "Категория"
 class Category(models.Model):
@@ -31,3 +31,12 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Отзыв от {self.author_name} на {self.product.name}"
+
+class UploadedImage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Связь с пользователем
+    image = models.ImageField(upload_to='images/')  # Поле для загрузки картинки
+    upload_date = models.DateTimeField(auto_now_add=True)  # Дата загрузки
+    description = models.TextField(blank=True, null=True)  # Описание картинки
+
+    def __str__(self):
+        return f"Картинка {self.image.name} от {self.user.username}"

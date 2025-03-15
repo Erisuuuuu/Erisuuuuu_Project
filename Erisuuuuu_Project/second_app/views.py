@@ -1,11 +1,15 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render,redirect
 from rest_framework import viewsets
 from .models import Category, Product, Review
 from first_app.models import Other
 from .serializers import (CategorySerializer, ProductSerializer, ReviewSerializer, OtherSerializer)
-
-
-
+from .forms import UploadImageForm
+from .models import UploadedImage
+import uuid
+import os
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -32,3 +36,19 @@ def product_list(request):
         'other': other,
     }
     return render(request, 'second_app/product_list.html', context)
+# @login_required
+def upload_image(request):
+    if request.method == 'POST':
+        form = UploadImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Сохранение картинки и информации о ней
+            uploaded_image = form.save(commit=False)
+            uploaded_image.user = request.user  # Текущий пользователь
+            uploaded_image.save()
+            return redirect('upload_image')  # Перенаправление на ту же страницу
+    else:
+        form = UploadImageForm()
+
+    # Получаем все загруженные картинки текущего пользователя
+    user_images = UploadedImage.objects.filter(user=request.user)
+    return render(request, 'second_app/upload_image.html', {'form': form, 'user_images': user_images})

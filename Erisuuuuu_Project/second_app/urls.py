@@ -13,4 +13,5 @@ router.register(r'other', OtherViewSet)
 urlpatterns = [
     path('product_list/',views.product_list,name='product_list'),
     path('', include(router.urls)),
+    path('upload_image/', views.upload_image, name='upload_image'),
 ]

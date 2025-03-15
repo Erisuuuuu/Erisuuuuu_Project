@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузка картинки</title>
+</head>
+<body>
+    <h1>Загрузите картинку</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Загрузить</button>
+    </form>
+
+    <h2>Ваши загруженные картинки</h2>
+    <ul>
+        {% for image in user_images %}
+            <li>
+                <img src="/media/{{ image.image }}" alt="{{ image.description }}" width="200">
+                <p>{{ image.description }}</p>
+                <small>Загружено: {{ image.upload_date }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
